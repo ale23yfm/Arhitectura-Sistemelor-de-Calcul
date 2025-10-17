@@ -42,13 +42,11 @@ start:
     SBB EDX, 0
     
     ;c+c
-    MOV ECX, 0
-    MOV CX, [c]
-    ADD CX, [c]
-    MOV CH, 0
+    MOV ECX, [c]
+	ADD ECX, [c]
     
     ;(d+d)-(a+a)-(b+b)-(c+c)
-    SUB EAX, EBX
+    SUB EAX, ECX
     SBB EDX, 0
     
 	push dword 0 ;se pune pe stiva codul de retur al functiei exit
