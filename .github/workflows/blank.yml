@@ -1,4 +1,4 @@
-name: Build and run ASM lab3 (32-bit)
+name: Build MASM lab3
 
 on:
   push:
@@ -8,25 +8,23 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install NASM and 32-bit tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y nasm gcc-multilib
+      - name: Set up Developer Command Prompt
+        uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Assemble lab3.asm (32-bit)
+      - name: Assemble with MASM
         run: |
-          nasm -f elf32 lab3.asm -o lab3.o
+          ml /c /coff lab3.asm
 
-      - name: Link object file (32-bit)
+      - name: Link object file
         run: |
-          gcc -m32 lab3.o -o lab3
+          link lab3.obj /SUBSYSTEM:CONSOLE /OUT:lab3.exe
 
       - name: Run the executable
         run: |
-          ./lab3
+          .\lab3.exe
