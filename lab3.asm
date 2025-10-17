@@ -9,11 +9,11 @@ segment  data use32 class=data ; segmentul de date in care se vor defini variabi
 	d dq 50
 	a db 20
 	b dw 10
-	c dd 30
+	c dd 10
     
 segment  code use32 class=code ; segmentul de cod
 start: 
-    ;(d+d)-(a+a)-(b+b)-(c+c)  
+;(d+d)-(a+a)-(b+b)-(c+c)  
     ;d+d
     MOV EAX, 0
     MOV EAX, [d+0]
@@ -32,7 +32,7 @@ start:
     SBB EDX, 0
     
     ;b+b 
-    MOV EBX,0
+    MOV EBX,0   
     MOV BX, 0
     MOV BX, [b]
     ADD BX, [b]
@@ -42,8 +42,10 @@ start:
     SBB EDX, 0
     
     ;c+c
+    MOV ECX, 0
     MOV CX, [c]
     ADD CX, [c]
+    MOV CH, 0
     
     ;(d+d)-(a+a)-(b+b)-(c+c)
     SUB EAX, EBX
