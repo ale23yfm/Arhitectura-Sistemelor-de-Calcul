@@ -1,4 +1,4 @@
-name: Build and run ASM lab3
+name: Build and run ASM lab3 (32-bit)
 
 on:
   push:
@@ -14,18 +14,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install nasm and build-essential
+      - name: Install NASM and 32-bit tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y nasm gcc
+          sudo apt-get install -y nasm gcc-multilib
 
-      - name: Assemble lab3.asm
+      - name: Assemble lab3.asm (32-bit)
         run: |
-          nasm -f elf64 lab3.asm -o lab3.o
+          nasm -f elf32 lab3.asm -o lab3.o
 
-      - name: Link object file
+      - name: Link object file (32-bit)
         run: |
-          gcc lab3.o -o lab3
+          gcc -m32 lab3.o -o lab3
 
       - name: Run the executable
         run: |
