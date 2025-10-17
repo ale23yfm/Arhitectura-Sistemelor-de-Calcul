@@ -1,0 +1,32 @@
+name: Build and run ASM lab3
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install nasm and build-essential
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y nasm gcc
+
+      - name: Assemble lab3.asm
+        run: |
+          nasm -f elf64 lab3.asm -o lab3.o
+
+      - name: Link object file
+        run: |
+          gcc lab3.o -o lab3
+
+      - name: Run the executable
+        run: |
+          ./lab3
