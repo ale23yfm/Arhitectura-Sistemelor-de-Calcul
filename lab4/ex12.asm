@@ -28,8 +28,8 @@ start:
     
     ; 2. bits 7-9
     mov BX, [a]
-    and AX, 0000_0011_1000_0000b
-    shl AX, 7
+    and BX, 0000_0011_1000_0000b
+    shl BX, 7
     or AX, BX
     
     ; 3. bits 10-15
@@ -42,7 +42,7 @@ start:
     or DX, 1111_1111_1111_1111b
     
     ;result
-    mov [c+16], DX
+    mov [c+2], DX
     mov [c], AX
     
 	push dword 0 ;se pune pe stiva codul de retur al functiei exit
