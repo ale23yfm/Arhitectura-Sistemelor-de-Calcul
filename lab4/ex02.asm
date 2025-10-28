@@ -47,6 +47,10 @@ segment code use32 class=code
         
         ;bits 16-31
         mov DX, [b]
+
+		;move in c
+        mov [c], AX
+        mov [c+2], DX
         
         ; exit(0)
         push    dword 0      ; push the parameter for exit onto the stack
