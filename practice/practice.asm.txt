@@ -1,0 +1,72 @@
+bits 32
+
+global start        
+
+extern exit
+import exit msvcrt.dll
+
+; Modify the code to solve the given problem.
+; Mark lines that were added/removed/changed with a comment.
+;
+; Given: a - word, b - word, c - double word,s
+;
+; Compute c as follows:
+; - c[0-5] <- a[3-8]
+; - c[6-8] <- b[2-4]
+; - c[9-15] <- a[6-12]
+; - c[16-31] <- 1
+;
+; NOTE: Ranges are 0-indexed and inclusive,
+; e.g. [0-2] means first 3 bits.
+;
+; Compute in the signed representation:
+; res = (a + b) / (a * -3 + c) + c
+
+segment data use32 class=data
+    res dd 0
+    a dw 1234
+    b dw 6543
+    c dd 0
+
+segment code use32 class=code
+start:
+    ;bits 0-5
+    mov ax, word [a] ; modified dword->word
+    and ax, 0b111111000 ; modified
+    shr ax, 3
+    or [c], ax
+    ;bits 6-8
+    mov ax, word [b]
+    and ax, 0b11100
+    shl ax, 4 ; modified shr->shl
+    or [c], ax
+    ;bits 9-15
+    mov ax, word [a]
+    and ax, 0b1111111000000
+    shl ax, 3 ; modified shr->shl
+    or [c], ax
+    ;bits 16-31
+    mov eax, 0
+    not eax
+    shl eax, 31
+    or [c], eax
+    
+    ;a+b
+    mov bx, word [a]
+    add bx, word [b]
+    ;a * -3 + c
+    mov ax, word [a]
+    mov cx, -3
+    imul cx
+    cwde ;cwd->cdwe
+    
+    add eax, dword [c]
+    mov ecx, eax
+    mov ax, bx
+    cwde
+    cdq
+    idiv ecx ; div->idiv
+    add eax, [c]
+    mov dword [res], eax
+    push dword 0
+    call [exit]
