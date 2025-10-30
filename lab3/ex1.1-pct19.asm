@@ -13,7 +13,8 @@ segment  data use32 class=data ; segmentul de date in care se vor defini variabi
     
 segment  code use32 class=code ; segmentul de cod
 start: 
-;(d+d)-(a+a)-(b+b)-(c+c)  
+;(d+d)-(a+a)-(b+b)-(c+c)
+;unsigned
     ;d+d
     MOV EAX, 0
     MOV EAX, [d+0]
