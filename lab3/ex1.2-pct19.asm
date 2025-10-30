@@ -17,6 +17,7 @@ segment  code use32 class=code ; segmentul de cod
 start: 
 
     ;(d+a)-(c-b)-(b-a)+(c+d)  
+	;signed
     
     ;a
     MOV AL, [a]
