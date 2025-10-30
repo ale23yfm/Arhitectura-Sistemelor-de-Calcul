@@ -14,6 +14,7 @@ segment data use32 class=data
 segment code use32 class=code
 start:
     ;(d+d-c)-(c+c-a)+(c+a)
+    ;signed
     xor EAX, EAX
     xor EDX, EDX
     mov EAX, [d]
